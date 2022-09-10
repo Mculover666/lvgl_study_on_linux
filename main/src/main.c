@@ -102,7 +102,8 @@ int main(int argc, char **argv)
 //  lv_demo_stress();
 //  lv_demo_music();
   
-  lv_study_base_obj();
+  //lv_study_base_obj();
+  lv_study_label();
 
   while(1) {
     /* Periodically call the lv_task handler.

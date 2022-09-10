@@ -1,3 +1,9 @@
+/**
+ * @brief   lvgl基础对象学习demo
+ * @author  Mculover666
+ * @date    2022-09-09
+*/
+
 #include "../../lv_study.h"
 
 static void show_obj_size(lv_obj_t *obj)
