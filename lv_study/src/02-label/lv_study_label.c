@@ -258,6 +258,62 @@ void lv_study_label_4_3(void)
     lv_label_set_text(label, LV_SYMBOL_GPS LV_SYMBOL_WIFI LV_SYMBOL_BLUETOOTH LV_SYMBOL_BELL LV_SYMBOL_BATTERY_FULL);
 }
 
+/**
+ * @brief label设置不同的字体
+*/
+void lv_study_label_5_1(void)
+{
+    lv_obj_t *obj = lv_obj_create(lv_scr_act());
+
+    lv_obj_t *label1 = lv_label_create(obj);
+    lv_obj_t *label2 = lv_label_create(obj);
+    lv_obj_t *label3 = lv_label_create(obj);
+
+    lv_obj_set_size(obj, 600, 600);
+
+    lv_obj_set_pos(label1, 0, 0);
+    lv_obj_set_pos(label2, 0, 100);
+    lv_obj_set_pos(label3, 0, 200);
+
+    lv_label_set_text(label1, "font14");
+    lv_label_set_text(label2, "font28");
+    lv_label_set_text(label3, "font48");
+
+    lv_obj_set_style_text_font(label1, &lv_font_montserrat_14, 0);
+    lv_obj_set_style_text_font(label2, &lv_font_montserrat_28, 0);
+    lv_obj_set_style_text_font(label3, &lv_font_montserrat_48, 0);
+}
+
+/**
+ * @brief label使用思源字体
+*/
+void lv_study_label_5_2(void)
+{
+    lv_obj_t *obj = lv_obj_create(lv_scr_act());
+    lv_obj_t *label1 = lv_label_create(obj);
+
+    lv_obj_set_size(obj, 400, 200);
+
+    lv_label_set_text(label1, "www.mculover666.cn 嵌入式宝藏站");
+    lv_obj_set_style_text_font(label1, &lv_font_simsun_16_cjk, 0);
+}
+
+LV_FONT_DECLARE(source_han_sanssc_light_2);
+
+/**
+ * @brief label使用思源黑体-Light
+*/
+void lv_study_label_5_3(void)
+{
+    lv_obj_t *obj = lv_obj_create(lv_scr_act());
+    lv_obj_t *label1 = lv_label_create(obj);
+
+    lv_obj_set_size(obj, 400, 200);
+
+    lv_label_set_text(label1, "www.mculover666.cn 嵌入式宝藏站");
+    lv_obj_set_style_text_font(label1, &source_han_sanssc_light_2, 0);
+}
+
 void lv_study_label(void)
 {
     /* label text set and get */
@@ -283,5 +339,11 @@ void lv_study_label(void)
     /* lvgl icon */
     //lv_study_label_4_1();
     //lv_study_label_4_2();
-    lv_study_label_4_3();
+    //lv_study_label_4_3();
+
+    /* font */
+    //lv_study_label_5_1();
+    //lv_study_label_5_2();
+    lv_study_label_5_3();
+
 }
