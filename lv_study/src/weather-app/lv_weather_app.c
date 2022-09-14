@@ -12,6 +12,8 @@ static lv_style_t default_style;
 static lv_style_t chFont_style;
 
 static lv_obj_t *city_label;
+static lv_obj_t *level_btn;
+static lv_obj_t *level_btn_label;
 static lv_obj_t *txt_label;
 
 void weather_city_label_init(lv_obj_t *label)
@@ -42,15 +44,31 @@ void weather_txt_label_init(lv_obj_t *label)
     lv_label_set_recolor(label, true);
 
     //设置默认文字
-    lv_label_set_text(txt_label, "最低气温12℃");
-    lv_obj_set_width(txt_label, strlen("最低气温12℃")*8);
+    lv_label_set_text(label, "最低气温12℃");
+    lv_obj_set_width(label, strlen("最低气温12℃")*8);
 
     //长文本滚动模式
-    lv_label_set_long_mode(txt_label, LV_LABEL_LONG_SCROLL_CIRCULAR);
-    lv_label_set_text_fmt(txt_label, "最低气温%d℃,最高气温%d℃,%s%d级.", 15, 20, "西北风", 0);
+    lv_label_set_long_mode(label, LV_LABEL_LONG_SCROLL_CIRCULAR);
+    lv_label_set_text_fmt(label, "最低气温%d℃,最高气温%d℃,%s%d级.", 15, 20, "西北风", 0);
 
     //设置位置
     lv_obj_align(label, LV_ALIGN_TOP_LEFT, 0, 50);
+}
+
+void weather_level_btn_init(lv_obj_t *btn, lv_obj_t *label)
+{
+    /* btn */
+    //orange
+    lv_obj_set_style_bg_color(btn, lv_color_make(0xFF, 0Xa5, 0X00), 0);
+    lv_obj_set_style_border_width(btn, 0, 0);
+    lv_obj_set_pos(btn, 75, 15);
+    lv_obj_set_size(btn, 50, 25);
+
+    /* label */
+    lv_obj_add_style(label, &chFont_style, 0);
+    lv_label_set_recolor(label, true);
+    lv_label_set_text(label, "良");
+    lv_obj_set_align(label, LV_ALIGN_CENTER);
 }
 
 void weather_ui_init(void)
@@ -74,11 +92,13 @@ void weather_ui_init(void)
     weather_city_label_init(city_label);
 
     /* 空气质量等级 */
-    txt_label = lv_label_create(scr_new);
-    weather_txt_label_init(txt_label);
+    level_btn = lv_btn_create(scr_new);
+    level_btn_label = lv_label_create(level_btn);
+    weather_level_btn_init(level_btn, level_btn_label);
 
     /* 天气提示文本 */
-
+    txt_label = lv_label_create(scr_new);
+    weather_txt_label_init(txt_label);
 
     //加载屏幕
     lv_scr_load(scr_new);
