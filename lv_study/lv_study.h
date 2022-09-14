@@ -21,6 +21,7 @@ extern "C" {
 
 #include "src/01-base-obj/lv_study_base_obj.h"
 #include "src/02-label/lv_study_label.h"
+#include "src/weather-app/lv_weather_app.h"
 
 /*********************
  *      DEFINES

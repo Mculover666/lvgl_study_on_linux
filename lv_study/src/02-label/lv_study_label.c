@@ -298,7 +298,7 @@ void lv_study_label_5_2(void)
     lv_obj_set_style_text_font(label1, &lv_font_simsun_16_cjk, 0);
 }
 
-LV_FONT_DECLARE(source_han_sanssc_light_2);
+LV_FONT_DECLARE(source_han_sanssc_light_14);
 
 /**
  * @brief label使用思源黑体-Light
@@ -311,7 +311,7 @@ void lv_study_label_5_3(void)
     lv_obj_set_size(obj, 400, 200);
 
     lv_label_set_text(label1, "www.mculover666.cn 嵌入式宝藏站");
-    lv_obj_set_style_text_font(label1, &source_han_sanssc_light_2, 0);
+    lv_obj_set_style_text_font(label1, &source_han_sanssc_light_14, 0);
 }
 
 void lv_study_label(void)
