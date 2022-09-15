@@ -7,14 +7,21 @@
 #include "../../lv_study.h"
 
 LV_FONT_DECLARE(source_han_sanssc_normal_20);
+LV_FONT_DECLARE(ibm_plex_mono_regular_64);
+LV_FONT_DECLARE(ibm_plex_mono_regular_32);
 
 static lv_style_t default_style;
 static lv_style_t chFont_style;
+static lv_style_t clock_hour_style;
+static lv_style_t clock_sec_style;
 
 static lv_obj_t *city_label;
 static lv_obj_t *level_btn;
 static lv_obj_t *level_btn_label;
 static lv_obj_t *txt_label;
+static lv_obj_t *clock_hour_label;
+static lv_obj_t *clock_sec_label;
+static lv_obj_t *date_label;
 
 void weather_city_label_init(lv_obj_t *label)
 {
@@ -71,6 +78,58 @@ void weather_level_btn_init(lv_obj_t *btn, lv_obj_t *label)
     lv_obj_set_align(label, LV_ALIGN_CENTER);
 }
 
+void weather_clock_hour_label_init(lv_obj_t *label)
+{
+    //字体样式
+    lv_style_init(&clock_hour_style);
+    lv_style_set_text_color(&clock_hour_style, lv_color_white());
+    lv_style_set_text_opa(&clock_hour_style, LV_OPA_COVER);
+    lv_style_set_text_font(&clock_hour_style, &ibm_plex_mono_regular_64);
+
+    lv_obj_add_style(label, &clock_hour_style, 0);
+
+    //使能重新着色
+    lv_label_set_recolor(label, true);
+
+    lv_label_set_text_fmt(label, "%02d#ffa500 %02d#", 10, 52);
+
+    //设置位置
+    lv_obj_align(label, LV_ALIGN_LEFT_MID, 0, 10);
+}
+
+void weather_clock_sec_label_init(lv_obj_t *label)
+{
+    //字体样式
+    lv_style_init(&clock_sec_style);
+    lv_style_set_text_color(&clock_sec_style, lv_color_white());
+    lv_style_set_text_opa(&clock_sec_style, LV_OPA_COVER);
+    lv_style_set_text_font(&clock_sec_style, &ibm_plex_mono_regular_32);
+
+    lv_obj_add_style(label, &clock_sec_style, 0);
+
+    //使能重新着色
+    lv_label_set_recolor(label, true);
+
+    lv_label_set_text_fmt(label, "%02d", 00);
+
+    //设置位置
+    lv_obj_align(label, LV_ALIGN_LEFT_MID, 165, 20);
+}
+
+void weather_date_label_init(lv_obj_t *label)
+{
+    //字体样式
+    lv_obj_add_style(label, &chFont_style, 0);
+
+    //使能重新着色
+    lv_label_set_recolor(label, true);
+
+    lv_label_set_text_fmt(label, "%2d月%2d日周%s", 9, 15, "四");
+
+    //设置位置
+    lv_obj_align(label, LV_ALIGN_LEFT_MID, 10, 60);
+}
+
 void weather_ui_init(void)
 {
     lv_obj_t *scr = lv_scr_act();
@@ -99,6 +158,16 @@ void weather_ui_init(void)
     /* 天气提示文本 */
     txt_label = lv_label_create(scr_new);
     weather_txt_label_init(txt_label);
+
+    /* 时钟 */
+    clock_hour_label = lv_label_create(scr_new);
+    weather_clock_hour_label_init(clock_hour_label);
+    clock_sec_label = lv_label_create(scr_new);
+    weather_clock_sec_label_init(clock_sec_label);
+
+    /* 日期 */
+    date_label = lv_label_create(scr_new);
+    weather_date_label_init(date_label);
 
     //加载屏幕
     lv_scr_load(scr_new);
