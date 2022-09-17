@@ -10,6 +10,10 @@ LV_FONT_DECLARE(source_han_sanssc_normal_20);
 LV_FONT_DECLARE(ibm_plex_mono_regular_64);
 LV_FONT_DECLARE(ibm_plex_mono_regular_32);
 
+LV_IMG_DECLARE(weather_fine);
+LV_IMG_DECLARE(weather_temp_logo);
+LV_IMG_DECLARE(weather_humi_logo);
+
 static lv_style_t default_style;
 static lv_style_t chFont_style;
 static lv_style_t clock_hour_style;
@@ -22,6 +26,9 @@ static lv_obj_t *txt_label;
 static lv_obj_t *clock_hour_label;
 static lv_obj_t *clock_sec_label;
 static lv_obj_t *date_label;
+static lv_obj_t *weather_img;
+static lv_obj_t *temp_img;
+static lv_obj_t *humi_img;
 
 void weather_city_label_init(lv_obj_t *label)
 {
@@ -94,7 +101,7 @@ void weather_clock_hour_label_init(lv_obj_t *label)
     lv_label_set_text_fmt(label, "%02d#ffa500 %02d#", 10, 52);
 
     //设置位置
-    lv_obj_align(label, LV_ALIGN_LEFT_MID, 0, 10);
+    lv_obj_align(label, LV_ALIGN_LEFT_MID, 0, -20);
 }
 
 void weather_clock_sec_label_init(lv_obj_t *label)
@@ -113,7 +120,7 @@ void weather_clock_sec_label_init(lv_obj_t *label)
     lv_label_set_text_fmt(label, "%02d", 00);
 
     //设置位置
-    lv_obj_align(label, LV_ALIGN_LEFT_MID, 165, 20);
+    lv_obj_align(label, LV_ALIGN_LEFT_MID, 165, -10);
 }
 
 void weather_date_label_init(lv_obj_t *label)
@@ -127,7 +134,28 @@ void weather_date_label_init(lv_obj_t *label)
     lv_label_set_text_fmt(label, "%2d月%2d日周%s", 9, 15, "四");
 
     //设置位置
-    lv_obj_align(label, LV_ALIGN_LEFT_MID, 10, 60);
+    lv_obj_align(label, LV_ALIGN_LEFT_MID, 10, 25);
+}
+
+void weather_level_img_init(lv_obj_t *img)
+{
+    lv_img_set_src(img, &weather_fine);
+
+    lv_obj_align(img, LV_ALIGN_TOP_RIGHT, -10, 10);
+}
+
+void weather_temp_init(lv_obj_t *img)
+{
+    lv_img_set_src(img, &weather_temp_logo);
+
+    lv_obj_align(img, LV_ALIGN_LEFT_MID, 10, 60);
+}
+
+void weather_humi_init(lv_obj_t *img)
+{
+    lv_img_set_src(img, &weather_humi_logo);
+
+    lv_obj_align(img, LV_ALIGN_LEFT_MID, 10, 100);
 }
 
 void weather_ui_init(void)
@@ -169,6 +197,18 @@ void weather_ui_init(void)
     date_label = lv_label_create(scr_new);
     weather_date_label_init(date_label);
 
+    /* 天气图标 */
+    weather_img = lv_img_create(scr_new);
+    weather_level_img_init(weather_img);
+
+    /* 温度指示条 */
+    temp_img = lv_img_create(scr_new);
+    weather_temp_init(temp_img);
+
+    /* 湿度指示条 */
+    humi_img = lv_img_create(scr_new);
+    weather_humi_init(humi_img);
+    
     //加载屏幕
     lv_scr_load(scr_new);
 }
