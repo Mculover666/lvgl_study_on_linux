@@ -155,7 +155,7 @@ void weather_humi_init(lv_obj_t *img)
 {
     lv_img_set_src(img, &weather_humi_logo);
 
-    lv_obj_align(img, LV_ALIGN_LEFT_MID, 10, 100);
+    lv_obj_align(img, LV_ALIGN_LEFT_MID, 6, 100);
 }
 
 void weather_ui_init(void)
