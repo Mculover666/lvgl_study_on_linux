@@ -105,9 +105,9 @@ int main(int argc, char **argv)
   //lv_study_base_obj();
   //lv_study_label();
   //lv_study_btn();
-  lv_study_bar();
+  //lv_study_bar();
 
-  //lv_weather_app();
+  lv_weather_app();
 
   while(1) {
     /* Periodically call the lv_task handler.
