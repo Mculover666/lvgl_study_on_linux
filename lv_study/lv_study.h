@@ -21,6 +21,8 @@ extern "C" {
 
 #include "src/01-base-obj/lv_study_base_obj.h"
 #include "src/02-label/lv_study_label.h"
+#include "src/03-btn/lv_study_btn.h"
+#include "src/04-bar/lv_study_bar.h"
 #include "src/weather-app/lv_weather_app.h"
 
 /*********************
