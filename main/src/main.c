@@ -107,10 +107,10 @@ int main(int argc, char **argv)
   //lv_study_btn();
   //lv_study_bar();
   //lv_study_tabview();
-  lv_study_list();
+  //lv_study_list();
 
   //lv_weather_app();
-  //lv_music_app();
+  lv_music_app();
 
   while(1) {
     /* Periodically call the lv_task handler.

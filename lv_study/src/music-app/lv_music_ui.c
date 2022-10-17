@@ -16,7 +16,7 @@ static lv_obj_t *music_bar_end_label;
 static lv_obj_t *music_play_btn;
 static lv_obj_t *music_next_btn;
 static lv_obj_t *music_prev_btn;
-
+static lv_obj_t *music_list;
 
 char start_label_text[] = "00:00";
 char end_label_text[] = "00:00";
@@ -101,6 +101,40 @@ void tab_main_create(lv_obj_t *parent)
     context_panel_create(parent);
 }
 
+static void list_btn_event_handler(lv_event_t * e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    lv_obj_t * obj = lv_event_get_target(e);
+    if(code == LV_EVENT_CLICKED) {
+        printf("btn clicked: %s\n", lv_list_get_btn_text(music_list, obj));
+    }
+}
+
+/**
+ * @brief   列表界面
+*/
+void tab_list_create(lv_obj_t *parent)
+{
+    int i;
+    lv_obj_t* t;
+    static lv_style_t list_btn_style;
+
+    music_list = lv_list_create(parent);
+    lv_obj_set_size(music_list, lv_pct(100), lv_pct(100));
+    lv_obj_set_style_bg_color(music_list, lv_color_black(), 0);
+
+    lv_style_init(&list_btn_style);
+    lv_style_set_bg_color(&list_btn_style, lv_color_black());
+    lv_style_set_text_color(&list_btn_style, lv_color_white());
+
+    
+    for (i = 0; i < 30; i++) {
+        t = lv_list_add_btn(music_list, LV_SYMBOL_AUDIO, "item");
+        lv_obj_add_style(t, &list_btn_style, 0);
+        lv_obj_add_event_cb(t, list_btn_event_handler, LV_EVENT_CLICKED, NULL);
+    }
+}
+
 /**
  * @brief   tabview
 */
@@ -120,6 +154,7 @@ void tv_create(lv_obj_t *parent)
     lv_obj_t *tab_about = lv_tabview_add_tab(tv, "ABOUT");
 
     tab_main_create(tab_main);
+    tab_list_create(tab_list);
 }
 
 void music_ui_init(void)
