@@ -24,6 +24,7 @@ extern "C" {
 #include "src/03-btn/lv_study_btn.h"
 #include "src/04-bar/lv_study_bar.h"
 #include "src/05-tabview/lv_study_tabview.h"
+#include "src/06-list/lv_study_list.h"
 
 #include "src/weather-app/lv_weather_app.h"
 
