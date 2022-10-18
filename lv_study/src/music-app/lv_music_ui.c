@@ -5,10 +5,13 @@
 */
 
 #include "../../lv_study.h"
+#include <dirent.h>
+#include <stdio.h>
 
 static lv_style_t tv_bm_style;
 static lv_style_t control_panel_style;
 static lv_style_t context_panel_style;
+static lv_style_t chFont_style;
 
 static lv_obj_t *music_bar;
 static lv_obj_t *music_bar_start_label;
@@ -25,6 +28,8 @@ LV_IMG_DECLARE(play_icon);
 LV_IMG_DECLARE(prev_icon);
 LV_IMG_DECLARE(next_icon);
 LV_IMG_DECLARE(pause_icon);
+
+LV_FONT_DECLARE(source_han_sanssc_normal_20);
 
 /**
  * @brief   控制面板
@@ -126,13 +131,47 @@ void tab_list_create(lv_obj_t *parent)
     lv_style_init(&list_btn_style);
     lv_style_set_bg_color(&list_btn_style, lv_color_black());
     lv_style_set_text_color(&list_btn_style, lv_color_white());
+    lv_style_set_text_font(&list_btn_style, &source_han_sanssc_normal_20);
 
     
-    for (i = 0; i < 30; i++) {
-        t = lv_list_add_btn(music_list, LV_SYMBOL_AUDIO, "item");
+    // for (i = 0; i < 30; i++) {
+    //     t = lv_list_add_btn(music_list, LV_SYMBOL_AUDIO, "item");
+    //     lv_obj_add_style(t, &list_btn_style, 0);
+    //     lv_obj_add_event_cb(t, list_btn_event_handler, LV_EVENT_CLICKED, NULL);
+    // }
+
+	char txtname[128];									//存放文本文件名
+	DIR *dp ;
+	struct dirent *dirp ;	
+    char *path = "/home/mculover666/develop/lvgl/lvgl_study_on_linux/lv_study/src/music-app/music";  					
+	
+	//打开指定目录
+	if( (dp = opendir( path )) == NULL )
+	{
+        printf("opendir fail!\n");
+	}
+
+    //开始遍历目录
+	while( ( dirp = readdir( dp ) ) != NULL)
+	{
+        //跳过'.'和'..'两个目录
+		if(strcmp(dirp->d_name,".")==0  || strcmp(dirp->d_name,"..")==0)
+			continue;
+ 
+		int size = strlen(dirp->d_name);
+ 
+        //只存取.mp3扩展名的文件名
+		if(strcmp( ( dirp->d_name + (size - 4) ) , ".mp3") != 0)
+		    continue;
+
+        printf("-->find %s\n", dirp->d_name);
+
+        t = lv_list_add_btn(music_list, LV_SYMBOL_AUDIO, dirp->d_name);
         lv_obj_add_style(t, &list_btn_style, 0);
         lv_obj_add_event_cb(t, list_btn_event_handler, LV_EVENT_CLICKED, NULL);
-    }
+	}
+ 
+	closedir(dp);
 }
 
 /**
